@@ -18,7 +18,11 @@
     "lint": {},
     "typecheck": {},
     "test": {
-      "outputs": []
+      "outputs": [],
+      "passThroughEnv": [
+        "CHROMIUM_PATH",
+        "CHROMIUM_NO_SANDBOX"
+      ]
     }
   }
 }
