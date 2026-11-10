@@ -1,0 +1,17 @@
+{
+  "name": "@open-resume/stubs",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A dependency-free deterministic stand-in for an OpenAI-compatible model endpoint, for development, CI and the integration tests.",
+  "type": "module",
+  "main": "server.mjs",
+  "types": "server.d.mts",
+  "scripts": {
+    "start": "node server.mjs",
+    "test": "vitest run",
+    "lint": "eslint ."
+  },
+  "devDependencies": {
+    "vitest": "^4.1.12"
+  }
+}

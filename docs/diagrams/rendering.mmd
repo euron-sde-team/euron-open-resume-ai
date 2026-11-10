@@ -1,0 +1,22 @@
+flowchart LR
+  doc["ResumeDocument<br/>improved, original or draft"]
+  norm["zod documentSchema<br/>trim, cap, drop unknown keys,<br/>filter links and photo"]
+  map["mapper.ts<br/>to template shape<br/>links filtered again"]
+  ejs["EJS template<br/>1 of 13, allow-listed id<br/>escaped output only"]
+  html["Self-contained HTML<br/>inline CSS and fonts<br/>CSP meta: default-src none"]
+  docx["docx builder<br/>tables, 3 layouts<br/>no HTML involved"]
+
+  preview["Preview<br/>iframe sandbox empty<br/>srcdoc, no scripts"]
+  pdf["Chromium page<br/>JS off, only data: and about:<br/>A4, print backgrounds"]
+  pdfout[("PDF")]
+  docxout[("DOCX")]
+
+  doc --> norm
+  norm --> map
+  map --> ejs
+  ejs --> html
+  html -->|"POST /builder/render<br/>GET /resumes/:id/render"| preview
+  html -->|"download, export"| pdf
+  pdf --> pdfout
+  norm --> docx
+  docx -->|"download, export"| docxout

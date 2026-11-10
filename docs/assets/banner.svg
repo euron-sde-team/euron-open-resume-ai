@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="360" viewBox="0 0 1280 360" role="img" aria-labelledby="t d">
+  <title id="t">Euron Open Resume AI</title>
+  <desc id="d">Euron Open Resume AI: a self-hosted resume analyser and builder with an ATS-style score, tailoring to a job description, 13 templates, PDF and DOCX export, interview questions, a career roadmap and project ideas.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0B1220"/>
+      <stop offset="1" stop-color="#0F1B2D"/>
+    </linearGradient>
+    <clipPath id="r"><rect width="1280" height="360" rx="24"/></clipPath>
+    <clipPath id="page"><rect x="0" y="0" width="300" height="300" rx="10"/></clipPath>
+  </defs>
+  <g clip-path="url(#r)">
+    <rect width="1280" height="360" fill="url(#bg)"/>
+    <g fill="none" stroke="#0E99AD" stroke-opacity="0.16" stroke-width="1.2">
+      <circle cx="1190" cy="30" r="120"/>
+      <circle cx="1190" cy="30" r="180"/>
+      <circle cx="1190" cy="30" r="240"/>
+      <circle cx="1190" cy="30" r="300"/>
+    </g>
+
+    <!-- Mark: a page with a check -->
+    <g transform="translate(72 70)">
+      <rect width="56" height="56" rx="16" fill="#F4F7FB"/>
+      <path d="M17 13h16l8 8v22a2 2 0 0 1-2 2H17a2 2 0 0 1-2-2V15a2 2 0 0 1 2-2z" fill="#0B1220"/>
+      <path d="M22 31l4.2 4.2L34 27.4" fill="none" stroke="#11A3B8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+
+    <text x="72" y="190" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="56" font-weight="700" letter-spacing="-1.4" fill="#F4F7FB">Euron Open Resume AI</text>
+    <text x="74" y="236" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="22" fill="#B7C3D3">Analyse, tailor and build a resume: an ATS-style score,</text>
+    <text x="74" y="266" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="22" fill="#B7C3D3">13 templates, PDF and DOCX, interview prep and a roadmap.</text>
+    <text x="74" y="312" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="15" letter-spacing="1.6" fill="#11A3B8">OPEN SOURCE · SELF-HOSTED · RUNS WITH NO API KEY</text>
+
+    <!-- A resume with its score -->
+    <g transform="translate(820 30) rotate(-2)">
+      <rect x="-6" y="-6" width="312" height="312" rx="16" fill="#1F2A3D"/>
+      <g clip-path="url(#page)">
+        <rect width="300" height="300" fill="#FFFFFF"/>
+        <rect x="20" y="22" width="120" height="12" rx="3" fill="#0B1220" fill-opacity="0.85"/>
+        <rect x="20" y="42" width="84" height="7" rx="3.5" fill="#64748B"/>
+        <rect x="20" y="70" width="46" height="6" rx="3" fill="#0E99AD"/>
+        <rect x="20" y="86" width="170" height="6" rx="3" fill="#334155" fill-opacity="0.7"/>
+        <rect x="20" y="100" width="150" height="6" rx="3" fill="#334155" fill-opacity="0.7"/>
+        <rect x="20" y="114" width="176" height="6" rx="3" fill="#334155" fill-opacity="0.7"/>
+        <rect x="20" y="142" width="46" height="6" rx="3" fill="#0E99AD"/>
+        <rect x="20" y="158" width="160" height="6" rx="3" fill="#334155" fill-opacity="0.7"/>
+        <rect x="20" y="172" width="182" height="6" rx="3" fill="#334155" fill-opacity="0.7"/>
+        <rect x="20" y="186" width="140" height="6" rx="3" fill="#334155" fill-opacity="0.7"/>
+        <rect x="20" y="214" width="46" height="6" rx="3" fill="#0E99AD"/>
+        <rect x="20" y="230" width="120" height="6" rx="3" fill="#334155" fill-opacity="0.7"/>
+        <rect x="20" y="244" width="150" height="6" rx="3" fill="#334155" fill-opacity="0.7"/>
+        <!-- score ring -->
+        <g transform="translate(236 70)">
+          <circle r="34" fill="none" stroke="#E2E8F0" stroke-width="8"/>
+          <circle r="34" fill="none" stroke="#0E99AD" stroke-width="8" stroke-linecap="round" stroke-dasharray="176 214" transform="rotate(-90)"/>
+          <text y="9" text-anchor="middle" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="26" font-weight="700" fill="#0B1220">82</text>
+        </g>
+        <rect x="204" y="124" width="72" height="6" rx="3" fill="#94A3B8"/>
+        <rect x="212" y="138" width="56" height="6" rx="3" fill="#CBD5E1"/>
+      </g>
+    </g>
+  </g>
+</svg>

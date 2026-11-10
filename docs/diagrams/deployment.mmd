@@ -1,0 +1,47 @@
+flowchart TB
+  internet(["Internet"])
+
+  subgraph edge["Edge"]
+    direction LR
+    cf["CloudFront + WAF<br/>optional, enable_cdn"]
+    alb["Application Load Balancer<br/>HTTPS, one host name"]
+  end
+
+  subgraph vpc["VPC, private subnets"]
+    direction TB
+    subgraph ecs["ECS Fargate"]
+      direction LR
+      web["web<br/>Next.js standalone"]
+      api["api<br/>dist/index.js<br/>Chromium for PDFs"]
+      worker["worker<br/>dist/worker.js<br/>no inbound port"]
+      oneoff["one-off tasks<br/>migrate, admin:create"]
+    end
+    subgraph data["Data"]
+      direction LR
+      rds[("RDS PostgreSQL 16<br/>Multi-AZ in prod")]
+      cache[("ElastiCache Redis")]
+    end
+  end
+
+  subgraph managed["AWS managed services"]
+    direction LR
+    s3[("S3 media bucket<br/>private, SSE-KMS")]
+    ses["SES v2"]
+    sm["Secrets Manager<br/>app, totp, provider-keys"]
+    kms["KMS key"]
+  end
+
+  providers["Model providers<br/>outbound HTTPS via NAT"]
+
+  internet --> cf
+  internet -.->|"CDN off"| alb
+  cf -->|"X-Origin-Verify"| alb
+  alb -->|"/api/* and /up"| api
+  alb -->|"everything else"| web
+  api --> data
+  worker --> data
+  oneoff --> data
+  api --> managed
+  worker --> managed
+  worker --> providers
+  api --> providers

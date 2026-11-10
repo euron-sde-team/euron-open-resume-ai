@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cover Letter</title>
+    <style>
+        /* A4 page setup */
+        @page {
+            size: A4;
+            margin: 15mm; /* Add margin to all sides of the page when printing */
+        }
+        @media print {
+            html, body {
+                width: 210mm;
+                height: 297mm;
+                margin: 0;
+                padding: 0;
+            }
+            .container {
+                width: 100%;
+                padding: 6mm; /* Add padding inside the container */
+                margin: 0 auto;
+                box-shadow: none;
+            }
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Times New Roman', serif;
+        }
+        body {
+            background: #fff;
+            color: #000;
+            line-height: 1.5; 
+            font-size: 14px; 
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px; 
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 25px; 
+        }
+        .name {
+            font-size: 28px; 
+            font-weight: bold;
+            margin-bottom: 10px; 
+            color: #000; /* Changed from #003366 to black */
+        }
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap; /* Allow wrapping if too many items */
+            font-size: 13px; 
+            margin: 10px 0 20px 0;
+            gap: 20px; /* Space between items */
+        }
+        .contact-info span {
+            display: flex;
+            align-items: center;
+        }
+        .contact-info i {
+            margin-right: 5px;
+            width: 14px; /* Fixed width for icons to align text */
+            text-align: center;
+        }
+        .contact-info a {
+            text-decoration: none;
+            color: #000;
+            font-weight: 500;
+        }
+        .date {
+            text-align: right;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        .recipient {
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        .recipient-name {
+            font-weight: bold;
+        }
+        .salutation {
+            margin-bottom: 15px;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        .letter-body {
+            text-align: justify;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+        .paragraph {
+            margin-bottom: 15px;
+            text-indent: 30px;
+        }
+        .closing {
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+        .signature {
+            margin-top: 5px;
+            font-size: 14px;
+        }
+        .signature-name {
+            font-weight: bold;
+            font-size: 16px;
+        }
+        .job-title {
+            margin-top: 5px;
+            font-style: italic;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <div class="header">
+            <div class="name"><%= data && data.coverLetter && data.coverLetter.personalInfo ? data.coverLetter.personalInfo.name : 'Name Not Available' %></div>
+            <div class="contact-info">
+                <% if (data && data.coverLetter && data.coverLetter.personalInfo) { %>
+                    <% if (data.coverLetter.personalInfo.email) { %>
+                        <span><i class="fas fa-envelope"></i> <%= data.coverLetter.personalInfo.email %></span>
+                    <% } %>
+                    
+                    <% if (data.coverLetter.personalInfo.phone) { %>
+                        <span><i class="fas fa-phone"></i> <%= data.coverLetter.personalInfo.phone %></span>
+                    <% } %>
+                    
+                    <% if (data.coverLetter.personalInfo.location) { %>
+                        <span><i class="fas fa-map-marker-alt"></i> <%= data.coverLetter.personalInfo.location %></span>
+                    <% } %>
+                <% } %>
+            </div>
+        </div>
+
+        <!-- Date -->
+        <div class="date">
+            <%= data && data.coverLetter && data.coverLetter.date ? data.coverLetter.date : new Date().toLocaleDateString() %>
+        </div>
+
+        <!-- Recipient Information -->
+        <div class="recipient">
+            <% if (data && data.coverLetter && data.coverLetter.recipient) { %>
+                <% if (data.coverLetter.recipient.name) { %>
+                    <div class="recipient-name"><%= data.coverLetter.recipient.name %></div>
+                <% } %>
+                <% if (data.coverLetter.recipient.title) { %>
+                    <div><%= data.coverLetter.recipient.title %></div>
+                <% } %>
+                <% if (data.coverLetter.recipient.company) { %>
+                    <div><%= data.coverLetter.recipient.company %></div>
+                <% } %>
+                <% if (data.coverLetter.recipient.address) { %>
+                    <div><%= data.coverLetter.recipient.address %></div>
+                <% } %>
+            <% } %>
+        </div>
+
+        <!-- Salutation -->
+        <div class="salutation">
+            <%= data && data.coverLetter && data.coverLetter.greeting ? data.coverLetter.greeting : 'Dear Hiring Manager,' %>
+        </div>
+
+        <!-- Letter Body -->
+        <div class="letter-body">
+            <% if (data && data.coverLetter && data.coverLetter.body && data.coverLetter.body.paragraphs) { %>
+                <% data.coverLetter.body.paragraphs.forEach(paragraph => { %>
+                    <div class="paragraph"><%= paragraph %></div>
+                <% }); %>
+            <% } %>
+        </div>
+
+        <!-- Closing -->
+        <div class="closing">
+            <%= data && data.coverLetter && data.coverLetter.closing ? data.coverLetter.closing : 'Sincerely' %>,
+        </div>
+
+        <!-- Signature -->
+        <div class="signature">
+            <div class="signature-name"><%= data && data.coverLetter && data.coverLetter.personalInfo ? data.coverLetter.personalInfo.name : 'Name Not Available' %></div>
+            <% if (data && data.coverLetter && data.coverLetter.personalInfo && data.coverLetter.personalInfo.title) { %>
+                <div class="job-title"><%= data.coverLetter.personalInfo.title %></div>
+            <% } %>
+        </div>
+    </div>
+</body>
+</html>

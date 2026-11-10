@@ -1,0 +1,37 @@
+sequenceDiagram
+  autonumber
+  actor U as Member
+  participant W as Web app
+  participant A as API
+  participant DB as PostgreSQL
+  participant S as Storage
+  participant Q as Redis queue
+  participant K as Worker
+  participant M as AI layer
+
+  U->>W: choose file, optional job description
+  W->>A: POST /api/resumes multipart
+  A->>A: sniff bytes, extract text, refuse scans
+  A->>DB: check slot and runs, charge 1 run
+  A->>S: put resumes/user/id/original.ext
+  A->>DB: insert resume + analysis row processing
+  A->>Q: after commit: resume-ai.run {resumeId, userId, analysis}
+  A-->>W: 202 ResumeSummary
+  loop every 1.5 s growing to 10 s
+    W->>A: GET /api/resumes/:id/status
+    A-->>W: status + component states
+  end
+  Q->>K: deliver job
+  K->>DB: claim row (conditional UPDATE)
+  K->>S: get original
+  K->>M: parseDocument(text)
+  K->>M: analyze(original, job)
+  M-->>K: before, improved, after, cover letter
+  K->>DB: one transaction: save results, mark analysis and rewrite done
+  K->>DB: request interview_non_technical at cost 0
+  K->>Q: resume-ai.run {interview_non_technical}
+  K->>M: interview(non_technical)
+  K->>DB: save groups, status analyzed
+  W->>A: GET /api/resumes/:id
+  A-->>W: ResumeDetail
+  Note over K,DB: On failure: retry up to 3 attempts, then mark failed and refund the run

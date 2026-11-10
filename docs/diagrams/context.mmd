@@ -1,0 +1,34 @@
+flowchart LR
+  user(["Member<br/>browser"])
+  admin(["Admin<br/>browser, /admin"])
+
+  subgraph app["Euron Open Resume AI"]
+    direction TB
+    web["Web app<br/>Next.js 15<br/>pages, CSP, proxies /api"]
+    api["API<br/>Express 5<br/>REST, auth, quotas,<br/>rendering"]
+    worker["Worker<br/>BullMQ<br/>AI pipeline, upkeep"]
+    ai["AI layer<br/>provider adapters +<br/>offline engine"]
+    chrome["Headless Chromium<br/>PDF only, no network"]
+  end
+
+  subgraph stores["Data and infrastructure"]
+    direction TB
+    pg[("PostgreSQL 16<br/>accounts, resumes,<br/>components, usage")]
+    redis[("Redis 7<br/>BullMQ queues,<br/>rate limits")]
+    s3[("Object storage<br/>S3 or local disk<br/>original uploads")]
+    mail["Mail<br/>SES, SMTP or outbox"]
+  end
+
+  models["Model providers<br/>OpenAI, Anthropic, Gemini,<br/>OpenAI-compatible<br/>keys from env, optional"]
+
+  user --> web
+  admin --> web
+  web -->|"/api/* same origin"| api
+  api -->|"enqueue ids only"| redis
+  redis -->|"deliver job"| worker
+  api --> ai
+  worker --> ai
+  api --> chrome
+  api --> stores
+  worker --> stores
+  ai -->|"only if a model is configured"| models

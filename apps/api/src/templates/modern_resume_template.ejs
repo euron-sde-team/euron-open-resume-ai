@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Resume</title>
+    <style>
+        /* A4 page setup */
+        @page {
+            size: A4;
+            margin: 0;
+        }
+        @media print {
+            html, body {
+                width: 210mm;
+                height: 297mm;
+                margin: 0;
+                padding: 0;
+            }
+            .container {
+                width: 100%;
+                padding: 4mm;
+                margin: 0 auto;
+                box-shadow: none;
+            }
+            
+            /* Prevent experience and project items from breaking across pages */
+            .experience-item, .project-item, .achievement-item, .education-item {
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+            }
+            
+            /* Ensure section titles stay with their content */
+            .section-title {
+                page-break-after: avoid;
+                break-after: avoid;
+            }
+            
+            /* Optional: Add some preference for keeping sections together */
+            .section {
+                page-break-inside: auto;
+                break-inside: auto;
+            }
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+        
+        body {
+            background: #fff;
+            color: #000;
+            line-height: 1.4;
+            font-size: 10px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            margin-bottom: 12px;
+        }
+        
+        .name {
+            font-size: 20px;
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 2px;
+            letter-spacing: 0.5px;
+        }
+        
+        .job-title {
+            font-size: 12px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 6px;
+            letter-spacing: 0.2px;
+        }
+        
+        .contact-info {
+            font-size: 11px;
+            color: #444;
+            margin-bottom: 8px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        
+        .contact-info a {
+            color: #444;
+            text-decoration: none;
+        }
+        
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+        
+        .contact-info i {
+            margin-right: 4px;
+            color: #D4AF37;
+        }
+        
+        .header-divider {
+            height: 2px;
+            background: #D4AF37;
+        }
+        
+        .section {
+            margin-bottom: 8px;
+        }
+        
+        .section:last-child {
+            border-bottom: none;
+        }
+        
+        .section-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            padding-bottom: 2px;
+            border-bottom: 1.5px solid #D4AF37;
+        }
+        
+        .summary {
+            font-size: 10px;
+            line-height: 1.5;
+            text-align: justify;
+            color: #333;
+        }
+        
+        .skills-list {
+            font-size: 10px;
+            line-height: 1.3;
+            color: #333;
+        }
+        
+        .skills-list .description-points {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        
+        .skills-list .description-points li {
+            margin-bottom: 0;
+            margin-right: 0;
+        }
+        
+        .experience-item {
+            margin-bottom: 10px;
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+        
+        .company-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 2px;
+        }
+        
+        .company-name {
+            font-size: 12px;
+            font-weight: 700;
+            color: #000;
+        }
+        
+        .duration {
+            font-size: 10px;
+            font-weight: 500;
+            color: #555;
+        }
+        
+        .designation {
+            font-size: 10px;
+            font-weight: 600;
+            margin-bottom: 2px;
+            color: #222;
+        }
+        
+        .description-points {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .description-points li {
+            font-size: 10px;
+            line-height: 1.3;
+            margin-bottom: 2px;
+            padding-left: 12px;
+            position: relative;
+            color: #333;
+        }
+        
+        .description-points li:before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #D4AF37;
+            font-weight: 600;
+        }
+        
+        .achievement-item {
+            margin-bottom: 6px;
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+        
+        .achievement-title {
+            font-size: 10px;
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 2px;
+        }
+        
+        .achievement-description {
+            font-size: 10px;
+            line-height: 1.3;
+            padding-left: 10px;
+            position: relative;
+            color: #333;
+        }
+        
+        .achievement-description:before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #D4AF37;
+            font-weight: 600;
+        }
+        
+        .project-item {
+            margin-bottom: 10px;
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+        
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 2px;
+        }
+        
+        .project-name {
+            font-size: 10px;
+            font-weight: 700;
+            color: #000;
+        }
+        
+        .project-subtitle {
+            font-size: 10px;
+            font-weight: 600;
+            margin-bottom: 2px;
+            color: #222;
+        }
+        
+        .project-description {
+            font-size: 10px;
+            line-height: 1.3;
+            color: #333;
+        }
+        
+        .project-points {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 4px;
+        }
+        
+        .project-points li {
+            font-size: 10px;
+            line-height: 1.3;
+            margin-bottom: 2px;
+            padding-left: 10px;
+            position: relative;
+            color: #333;
+        }
+        
+        .project-points li:before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #D4AF37;
+            font-weight: 600;
+        }
+        
+        .education-item {
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+        
+        .education-details {
+            flex: 1;
+        }
+        
+        .degree {
+            font-size: 10px;
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 2px;
+        }
+        
+        .institution {
+            font-size: 10px;
+            color: #444;
+            font-weight: 500;
+        }
+        
+        .education-duration {
+            font-size: 10px;
+            font-weight: 500;
+            color: #555;
+            text-align: right;
+            margin-left: 20px;
+        }
+        
+        .coursework {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 4px;
+        }
+        
+        .coursework li {
+            font-size: 10px;
+            line-height: 1.3;
+            margin-bottom: 2px;
+            padding-left: 10px;
+            position: relative;
+            color: #333;
+        }
+        
+        .coursework li:before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #D4AF37;
+            font-weight: 600;
+        }
+        
+        .additional-info {
+            margin-bottom: 12px;
+        }
+        
+        .info-item {
+            margin-bottom: 10px;
+        }
+        
+        .info-label {
+            font-size: 10px;
+            font-weight: 700;
+            color: #000;
+            display: inline;
+        }
+        
+        .info-content {
+            font-size: 10px;
+            color: #333;
+            display: inline;
+        }
+        
+        .achievements-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        
+        .achievement-item {
+            margin-bottom: 6px;
+        }
+        
+        .achievement-title {
+            font-size: 10px;
+            font-weight: 400;
+            color: #000;
+        }
+        
+        .achievement-description {
+            font-size: 10px;
+            color: #555;
+            font-style: italic;
+            margin-left: 6px;
+        }
+        
+        .duration-location {
+            text-align: right;
+            margin-left: 20px;
+        }
+        
+        .location {
+            font-size: 10px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <%
+    function shouldRender(value) {
+        if (!value) return false;
+        const trimmedValue = value.replace(/\s/g, '');
+        if (trimmedValue === '' || trimmedValue === '/-/' || trimmedValue.toLowerCase() === 'n/a') {
+            return false;
+        }
+        return true;
+    }
+    %>
+    <div class="container">
+        <!-- Header Section -->
+        <div class="header">
+            <div class="name"><%= data.updatedResume.personalInfo.name %></div>
+            <div class="job-title">
+                <% if (data.updatedResume.personalInfo.title) { %>
+                    <%= data.updatedResume.personalInfo.title %>
+                <% } else { %>
+                    Professional
+                <% } %>
+            </div>
+            <div class="contact-info">
+                <span><i class="fas fa-envelope"></i> <a href="mailto:<%= data.updatedResume.personalInfo.email %>"><%= data.updatedResume.personalInfo.email %></a></span>
+                <span><i class="fas fa-phone"></i> <%= data.updatedResume.personalInfo.phone %></span>
+                
+                <% 
+                // Helper function to determine the icon class based on URL
+                function getIconForUrl(url) {
+                  if (!url) return 'fas fa-globe';
+                  
+                  const urlLower = url.toLowerCase();
+                  if (urlLower.includes('linkedin.com')) return 'fab fa-linkedin';
+                  if (urlLower.includes('github.com')) return 'fab fa-github';
+                  if (urlLower.includes('leetcode.com')) return 'fas fa-code';
+                  if (urlLower.includes('medium.com')) return 'fab fa-medium';
+                  if (urlLower.includes('twitter.com') || urlLower.includes('x.com')) return 'fab fa-twitter';
+                  if (urlLower.includes('facebook.com')) return 'fab fa-facebook';
+                  if (urlLower.includes('instagram.com')) return 'fab fa-instagram';
+                  if (urlLower.includes('youtube.com')) return 'fab fa-youtube';
+                  if (urlLower.includes('stackoverflow.com')) return 'fab fa-stack-overflow';
+                  if (urlLower.includes('codepen.io')) return 'fab fa-codepen';
+                  if (urlLower.includes('codechef.com')) return 'fas fa-code';
+                  if (urlLower.includes('codeforces.com')) return 'fas fa-code';
+                  if (urlLower.includes('hackerearth.com')) return 'fas fa-code';
+                  if (urlLower.includes('hackerrank.com')) return 'fas fa-code';
+                  return 'fas fa-globe';
+                }
+                
+                // Helper function to get display text for the link
+                function getDisplayText(url) {
+                  if (url.includes('linkedin.com')) return 'LinkedIn';
+                  if (url.includes('github.com')) return 'GitHub';
+                  if (url.includes('leetcode.com')) return 'LeetCode';
+                  
+                  try {
+                    const domain = new URL(url).hostname.replace('www.', '');
+                    return domain.split('.')[0].charAt(0).toUpperCase() + domain.split('.')[0].slice(1);
+                  } catch(e) {
+                    return 'Website';
+                  }
+                }
+                
+                // Handle all links in the array
+                if (data.updatedResume.personalInfo.links && 
+                    data.updatedResume.personalInfo.links.length > 0) {
+                  data.updatedResume.personalInfo.links.forEach(url => {
+                %>
+                  <span>
+                    <i class="<%= getIconForUrl(url) %>"></i> 
+                    <a href="<%= safeHref(url) %>" target="_blank"><%= getDisplayText(url) %></a>
+                  </span>
+                <% 
+                  });
+                }
+                %>
+            </div>
+            <div class="header-divider"></div>
+        </div>
+
+        <!-- Summary Section -->
+        <div class="section">
+            <h2 class="section-title">PROFESSIONAL SUMMARY</h2>
+            <div class="summary">
+                <%= data.updatedResume.summary %>
+            </div>
+        </div>
+
+        <!-- Skills Section -->
+        <div class="section">
+            <h2 class="section-title">SKILLS</h2>
+            <div class="skills-list">
+                <% if (data.updatedResume.skills && Array.isArray(data.updatedResume.skills)) { %>
+                    <ul class="description-points">
+                        <% data.updatedResume.skills.forEach(skill => { %>
+                            <li><%= skill %></li>
+                        <% }) %>
+                    </ul>
+                <% } %>
+            </div>
+        </div>
+
+        <!-- Experience Section - Only render if experience exists and has items -->
+        <% if (data.updatedResume.experience && data.updatedResume.experience.length > 0) { %>
+        <div class="section">
+            <h2 class="section-title">EXPERIENCE</h2>
+            <% data.updatedResume.experience.forEach(exp => { %>
+                <div class="experience-item">
+                    <div class="company-header">
+                        <div class="company-name">
+                            <%= exp.companyName %>
+                            <% if (exp.link) { %>
+                                <a href="<%= safeHref(exp.link) %>" target="_blank" style="text-decoration: none; margin-left: 5px; color: #D4AF37;">
+                                    <i class="fas fa-link" style="font-size: 0.7em;"></i>
+                                </a>
+                            <% } %>
+                        </div>
+                        <% if (shouldRender(exp.duration)) { %>
+                            <div class="duration"><%= exp.duration %></div>
+                        <% } %>
+                    </div>
+                    <div class="designation"><%= exp.designation %></div>
+                    <ul class="description-points">
+                        <% exp.description.forEach(desc => { %>
+                            <li><%= desc.point %></li>
+                        <% }) %>
+                    </ul>
+                </div>
+            <% }) %>
+        </div>
+        <% } %>
+
+        <!-- Projects Section -->
+        <% if (data.updatedResume.projects && data.updatedResume.projects.length > 0) { %>
+        <div class="section">
+            <h2 class="section-title">PROJECTS</h2>
+            <% data.updatedResume.projects.forEach(project => { %>
+                <div class="project-item">
+                    <div class="project-header">
+                        <div class="project-name">
+                            <%= project.name %>
+                            <% if (project.link) { %>
+                                <a href="<%= safeHref(project.link) %>" target="_blank" style="text-decoration: none; margin-left: 5px; color: #D4AF37;">
+                                    <i class="fas fa-link" style="font-size: 0.7em;"></i>
+                                </a>
+                            <% } %>
+                        </div>
+                        <% if (shouldRender(project.duration)) { %>
+                        <div class="duration"><%= project.duration %></div>
+                        <% } %>
+                    </div>
+                    <ul class="description-points">
+                        <% project.description.forEach(desc => { %>
+                            <li><%= desc.point %></li>
+                        <% }) %>
+                    </ul>
+                </div>
+            <% }) %>
+        </div>
+        <% } %>
+
+        <!-- Education Section -->
+        <% if (data.updatedResume.education && data.updatedResume.education.length > 0) { %>
+        <div class="section">
+            <h2 class="section-title">EDUCATION</h2>
+            <% data.updatedResume.education.forEach(edu => { %>
+                <div class="education-item">
+                    <div class="education-details">
+                        <div class="degree"><%= edu.degree %></div>
+                        <div class="institution"><%= edu.institution %></div>
+                    </div>
+                    <% if (shouldRender(edu.duration)) { %>
+                    <div class="duration-location">
+                        <div class="duration"><%= edu.duration %></div>
+                    </div>
+                    <% } %>
+                </div>
+            <% }) %>
+        </div>
+        <% } %>
+
+         <!-- Achievements & Certifications Section -->
+         <% if (data.updatedResume.achievements && data.updatedResume.achievements.length > 0) { %>
+         <div class="section">
+            <h2 class="section-title">ACHIEVEMENTS & CERTIFICATIONS</h2>
+            <ul class="achievements-list">
+                <% data.updatedResume.achievements.forEach(achievement => { %>
+                    <li>
+                        <div class="achievement-item">
+                            <% if (typeof achievement === 'object' && achievement !== null) { %>
+                                <span class="achievement-title">
+                                    <%= achievement.name %>
+                                    <% if (achievement.link) { %>
+                                        <a href="<%= safeHref(achievement.link) %>" target="_blank" style="text-decoration: none; margin-left: 5px; color: #D4AF37;">
+                                            <i class="fas fa-link" style="font-size: 0.7em;"></i>
+                                        </a>
+                                    <% } %>
+                                </span>
+                                <% if (shouldRender(achievement.date)) { %>
+                                    <span class="achievement-description"><%= achievement.date %></span>
+                                <% } %>
+                            <% } else { %>
+                                <span class="achievement-title"><%= achievement %></span>
+                            <% } %>
+                        </div>
+                    </li>
+                <% }) %>
+            </ul>
+        </div>
+        <% } %>
+    </div>
+</body>
+</html>
