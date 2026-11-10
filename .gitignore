@@ -25,6 +25,7 @@ crash.log
 # Local runtime artifacts
 .demo/
 data/
+!packages/samples/data/
 apps/api/data/
 tmp/
 playwright-report/

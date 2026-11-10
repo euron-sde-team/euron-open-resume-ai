@@ -16,6 +16,7 @@ import os from "node:os";
 import path from "node:path";
 import puppeteer, { type Browser } from "puppeteer-core";
 import { config } from "../../../core/config";
+import { captureError } from "../../../core/logger";
 
 export class PdfUnavailableError extends Error {
   constructor(message: string) {
@@ -111,7 +112,15 @@ async function launch(): Promise<Browser> {
     "--disable-features=Translate,MediaRouter,OptimizationHints",
   ];
   if (config.CHROMIUM_NO_SANDBOX === "1") args.push("--no-sandbox", "--disable-setuid-sandbox");
-  const b = await puppeteer.launch({ executablePath, headless: true, args, handleSIGINT: false, handleSIGTERM: false, handleSIGHUP: false });
+  let b: Browser;
+  try {
+    b = await puppeteer.launch({ executablePath, headless: true, args, handleSIGINT: false, handleSIGTERM: false, handleSIGHUP: false });
+  } catch (err) {
+    // A Chromium that is installed but will not start (no sandbox permission, missing libraries) is
+    // the same operator problem as no Chromium: say so, as a 503, with the cause in the log.
+    captureError(err, { where: "pdf.launch" });
+    throw new PdfUnavailableError("Chromium failed to start. See the log, and CHROMIUM_NO_SANDBOX in docs/guides/configuration.md.");
+  }
   b.on("disconnected", () => {
     // Only forget it when it is still the current browser (a recycled one is already replaced).
     void browser?.then((cur) => {

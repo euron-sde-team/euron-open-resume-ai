@@ -209,13 +209,13 @@ locals {
     DATA_DIR                   = "/tmp/data"
     # Headless Chromium comes from the image (Debian package); the api and the worker render PDFs with it.
     # The root filesystem is read-only: Chromium keeps its profile and crash files under HOME.
-    HOME                       = "/tmp"
+    HOME                = "/tmp"
     CHROMIUM_PATH       = "/usr/bin/chromium"
     CHROMIUM_NO_SANDBOX = "1"
     TEMPLATES_DIR       = "/app/dist/templates"
-    MIGRATE_ON_BOOT            = tostring(var.migrate_on_boot)
-    MIGRATIONS_DIR             = "/app/db/migrations"
-    DB_POOL_MAX                = tostring(var.db_pool_max)
+    MIGRATE_ON_BOOT     = tostring(var.migrate_on_boot)
+    MIGRATIONS_DIR      = "/app/db/migrations"
+    DB_POOL_MAX         = tostring(var.db_pool_max)
     # No database password in the environment: the API reads it from the secret for
     # each new connection, so a rotation needs no redeploy. The RDS-managed master
     # secret, or the application role's secret once app_db_secret_arn is set (see
